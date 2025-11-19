@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environments
+venv/
+env/
+.venv/
+
+# Secrets
+.env
+
+# VS Code
+.vscode/
+
+# Model caches / large files
+*.ckpt
+*.pth
+*.pt
+/models/
+sentence_transformers/
+transformers/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+dejavu-sans-ttf-2.37/
+*.ttf

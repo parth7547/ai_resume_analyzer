@@ -1,0 +1,9 @@
+streamlit
+PyPDF2
+matplotlib
+scikit-learn
+sentence-transformers
+google-generativeai
+python-dotenv
+fpdf2
+protobuf
