@@ -1,4 +1,3 @@
-# app.py
 import os
 import streamlit as st
 import PyPDF2
@@ -15,7 +14,7 @@ from utils import (
     generate_pdf_report
 )
 
-# ------------------------- Setup -------------------------
+# Setup -------------
 load_dotenv()
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -29,7 +28,7 @@ st.title("AI Resume Analyzer — ATS Mode")
 st.caption("Accurate ATS-style scoring with AI-powered skill extraction and suggestions.")
 
 
-# ------------------------- PDF Extract -------------------------
+# PDF Extract -------------
 def extract_text_from_pdf(file):
     try:
         reader = PyPDF2.PdfReader(file)
@@ -56,29 +55,29 @@ if st.button("🔍 Analyze Match"):
 
     with st.spinner("Processing..."):
 
-        # ---------- Extract & clean text ----------
+        # Extract & clean text ----------
         raw_resume = extract_text_from_pdf(resume_file)
         resume_text = clean_text(raw_resume)
         jd_text = clean_text(job_desc)
 
-        # ---------- AI skill extraction (IMPORTANT: use RAW JD) ----------
+        # AI skill extraction (IMPORTANT: use RAW JD) ----------
         extracted_skills = extract_skills_from_jd(job_desc)
 
         if not extracted_skills:
             st.error("❌ Could not extract skills from the Job Description.")
             st.stop()
 
-        # ---------- Semantic similarity ----------
+        # Semantic similarity ----------
         semantic_score = calculate_similarity(resume_text, jd_text)
 
-        # ---------- Skill analysis ----------
+        # Skill analysis ----------
         missing_skills, matched_skills = find_missing_skills(
             resume_text,
             jd_text,
             extracted_skills
         )
 
-        # ---------- Final ATS Score ----------
+        # Final ATS Score ----------
         final_score = calculate_final_score(
             semantic_score,
             matched_skills,
@@ -87,7 +86,7 @@ if st.button("🔍 Analyze Match"):
             jd_text
         )
 
-    # --------------------- Results ---------------------
+    # Results -------------
     st.subheader(f"📊 ATS Match Score: **{final_score}%**")
 
     if final_score >= 80:

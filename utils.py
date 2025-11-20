@@ -1,4 +1,3 @@
-# utils.py
 import re
 from fpdf import FPDF
 from datetime import datetime
@@ -9,9 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 
-# --------------------------
 # Basic text cleanup
-# --------------------------
 def clean_text(text):
     if not text:
         return ""
@@ -21,9 +18,7 @@ def clean_text(text):
     return text.strip()
 
 
-# --------------------------
 # Semantic similarity 0–100
-# --------------------------
 def calculate_similarity(resume_text, jd_text):
     if not resume_text or not jd_text:
         return 0.0
@@ -35,9 +30,7 @@ def calculate_similarity(resume_text, jd_text):
         return 0.0
 
 
-# --------------------------
-# Skill Matching (NEW – Works with AI Extractor)
-# --------------------------
+# Skill Matching
 def find_missing_skills(resume_text, jd_text, extracted_skills):
     """
     extracted_skills = list of skills returned by extract_skills_from_jd()
@@ -81,9 +74,7 @@ def find_missing_skills(resume_text, jd_text, extracted_skills):
     return uniq(missing), uniq(matched)
 
 
-# --------------------------
 # Resume structure heuristic (ATS scoring)
-# --------------------------
 def resume_structure_score(resume_text):
     t = resume_text.lower()
     score = 0
@@ -98,9 +89,7 @@ def resume_structure_score(resume_text):
     return min(score, 100)
 
 
-# --------------------------
-# Experience alignment heuristic
-# --------------------------
+# Experience alignment
 def experience_alignment_score(resume_text, jd_text):
     r = resume_text.lower()
     j = jd_text.lower()
@@ -133,9 +122,7 @@ def experience_alignment_score(resume_text, jd_text):
     return min(score, 100)
 
 
-# --------------------------
 # ATS Final Score (0–100)
-# --------------------------
 def calculate_final_score(semantic_score, matched_skills, missing_skills, resume_text, jd_text):
     total = len(matched_skills) + len(missing_skills)
     skill_ratio = (len(matched_skills) / total) if total > 0 else 0
@@ -153,9 +140,7 @@ def calculate_final_score(semantic_score, matched_skills, missing_skills, resume
     return round(final, 2)
 
 
-# --------------------------
-# PDF generator (emoji-safe)
-# --------------------------
+# PDF generator
 def sanitize_pdf_text(text):
     if not text:
         return ""

@@ -8,9 +8,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-# -----------------------------
 # CLEANUP HELPERS
-# -----------------------------
 STOPWORDS = {
     "and","or","with","the","a","an","of","for","to","from","in","on","by","as",
     "your","our","their","its","be","is","are","was","were","will","can","may",
@@ -33,9 +31,7 @@ def clean_skill(skill):
     return skill
 
 
-# -----------------------------
-# AI SKILL EXTRACTION (IMPROVED)
-# -----------------------------
+# AI SKILL EXTRACTION
 def extract_skills_from_jd(jd_text):
     prompt = f"""
     Extract ONLY real skills from this Job Description.
@@ -80,9 +76,7 @@ def extract_skills_from_jd(jd_text):
         return fallback_extract(jd_text)
 
 
-# -----------------------------
 # FALLBACK EXTRACTOR (NO AI)
-# -----------------------------
 def fallback_extract(text):
     text = text.lower()
 
@@ -108,9 +102,7 @@ def fallback_extract(text):
     return cleaned
 
 
-# -----------------------------
 # AI Resume Improvement
-# -----------------------------
 def generate_resume_suggestions(resume_text, job_description):
     prompt = f"""
     You are an expert resume reviewer.
