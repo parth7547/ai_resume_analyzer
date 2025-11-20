@@ -43,7 +43,7 @@ def extract_text_from_pdf(file):
         return ""
 
 
-# ------------------------- Analyze Button -------------------------
+# Analyze Button -------------------------
 resume_file = st.file_uploader("📄 Upload resume (PDF)", type=["pdf"])
 job_desc = st.text_area("📝 Paste Job Description")
 
